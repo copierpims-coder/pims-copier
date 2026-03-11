@@ -1,0 +1,79 @@
+/* ─── PracticeHub → PIMS Copier — Injected Styles ──────────────────── */
+
+.pims-copier-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  margin: 4px 8px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #ffffff;
+  background: #1a73e8;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  line-height: 1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  z-index: 2147483647;
+  position: relative;
+}
+
+.pims-copier-btn:hover {
+  background: #1557b0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.pims-copier-btn:active {
+  background: #104a96;
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.pims-copier-btn-success {
+  background: #0d904f !important;
+}
+
+.pims-copier-btn-success:hover {
+  background: #0a7a42 !important;
+}
+
+/* ─── Toast Notification ─────────────────────────────────────────── */
+
+.pims-copier-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  border-radius: 8px;
+  z-index: 999999;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 360px;
+}
+
+.pims-copier-toast-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pims-copier-toast-success {
+  background: #0d904f;
+  color: #ffffff;
+}
+
+.pims-copier-toast-error {
+  background: #d93025;
+  color: #ffffff;
+}

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PIMS Copier Settings</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 360px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+      color: #1f2937;
+      background: #f9fafb;
+    }
+
+    /* ─── Header ─── */
+    .header {
+      background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+      color: #fff;
+      padding: 16px;
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .header p {
+      font-size: 11px;
+      opacity: 0.85;
+    }
+
+    /* ─── Sections ─── */
+    .section {
+      padding: 12px 16px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    /* ─── Field Checkboxes ─── */
+    .field-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .field-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 6px;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+    .field-item:hover {
+      background: #f3f4f6;
+    }
+    .field-item input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #1a73e8;
+      cursor: pointer;
+    }
+    .field-item label {
+      cursor: pointer;
+      user-select: none;
+      font-size: 13px;
+      flex: 1;
+    }
+    .field-item .field-tag {
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    /* ─── Quick Actions ─── */
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .quick-actions button {
+      flex: 1;
+      padding: 4px;
+      font-size: 11px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      background: #fff;
+      color: #374151;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .quick-actions button:hover {
+      background: #f3f4f6;
+      border-color: #9ca3af;
+    }
+
+    /* ─── Select / Toggle Row ─── */
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .setting-row label {
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .setting-row select {
+      padding: 4px 8px;
+      font-size: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      background: #fff;
+    }
+
+    /* ─── Toggle Switch ─── */
+    .toggle {
+      position: relative;
+      width: 36px;
+      height: 20px;
+    }
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle .slider {
+      position: absolute;
+      inset: 0;
+      background: #d1d5db;
+      border-radius: 20px;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .toggle .slider:before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 2px;
+      bottom: 2px;
+      background: #fff;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+    .toggle input:checked + .slider {
+      background: #1a73e8;
+    }
+    .toggle input:checked + .slider:before {
+      transform: translateX(16px);
+    }
+
+    /* ─── Preview ─── */
+    .preview-box {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 10px;
+      font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      color: #374151;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 140px;
+      overflow-y: auto;
+      min-height: 60px;
+    }
+    .preview-empty {
+      color: #9ca3af;
+      font-style: italic;
+    }
+
+    /* ─── Save Button ─── */
+    .save-bar {
+      padding: 12px 16px;
+      display: flex;
+      gap: 8px;
+    }
+    .btn-save {
+      flex: 1;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      background: #1a73e8;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-save:hover { background: #1557b0; }
+    .btn-save:active { background: #104a96; }
+    .btn-save.saved {
+      background: #0d904f;
+    }
+
+    /* ─── Status Bar ─── */
+    .status-bar {
+      padding: 8px 16px;
+      text-align: center;
+      font-size: 11px;
+      color: #6b7280;
+      background: #f3f4f6;
+    }
+    .status-bar .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+    .dot-active { background: #0d904f; }
+    .dot-inactive { background: #d1d5db; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>PracticeHub PIMS Copier</h1>
+    <p>Configure which fields to copy &amp; how to format them</p>
+  </div>
+
+  <!-- Fields Section -->
+  <div class="section">
+    <div class="section-title">Fields to Copy</div>
+    <div class="quick-actions">
+      <button id="selectRecommended">Recommended</button>
+      <button id="selectAll">Select All</button>
+      <button id="selectNone">Clear All</button>
+    </div>
+    <div class="field-list" id="fieldList">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- Format Section -->
+  <div class="section">
+    <div class="section-title">Format</div>
+
+    <div class="setting-row">
+      <label for="separator">Field Separator</label>
+      <select id="separator">
+        <option value="newline">New Line</option>
+        <option value="tab">Tab</option>
+        <option value="comma">Comma</option>
+        <option value="pipe">Pipe ( | )</option>
+      </select>
+    </div>
+
+    <div class="setting-row">
+      <label>Include field labels</label>
+      <div class="toggle">
+        <input type="checkbox" id="includeLabels" checked>
+        <span class="slider"></span>
+      </div>
+    </div>
+
+    <div class="setting-row">
+      <label>Show copy notification</label>
+      <div class="toggle">
+        <input type="checkbox" id="showNotification" checked>
+        <span class="slider"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preview Section -->
+  <div class="section">
+    <div class="section-title">Clipboard Preview</div>
+    <div class="preview-box" id="preview">
+      <span class="preview-empty">Select fields above to see preview</span>
+    </div>
+  </div>
+
+  <!-- Save -->
+  <div class="save-bar">
+    <button class="btn-save" id="saveBtn">Save Settings</button>
+  </div>
+
+  <!-- Status -->
+  <div class="status-bar" id="statusBar">
+    <span class="dot dot-inactive" id="statusDot"></span>
+    <span id="statusText">Not on PracticeHub</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
