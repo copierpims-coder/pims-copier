@@ -28,7 +28,7 @@
   .header-inner{position:relative;z-index:1}
   .header-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:11px;color:rgba(255,255,255,.85);font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:16px}
   .header h1{color:#fff;font-size:28px;font-weight:700;letter-spacing:-.03em;margin-bottom:6px}
-  .header p{color:rgba(255,255,255,.7);font-size:14px;max-width:480px;margin:0 auto}
+  .header p{color:rgba(255,255,255,.7);font-size:14px;max-width:520px;margin:0 auto}
   .step-indicator{display:flex;align-items:center;justify-content:center;gap:0;margin-top:24px}
   .step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;transition:all .2s}
   .step-dot.active{background:#fff;color:var(--navy)}
@@ -41,8 +41,8 @@
   .step-label.active{color:rgba(255,255,255,.9)}
 
   /* ── LAYOUT ── */
-  .layout{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:960px;margin:24px auto;padding:0 20px}
-  @media(max-width:700px){.layout{grid-template-columns:1fr}}
+  .layout{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1040px;margin:24px auto;padding:0 20px}
+  @media(max-width:760px){.layout{grid-template-columns:1fr}}
 
   /* ── PANEL ── */
   .panel{background:#fff;border-radius:14px;box-shadow:var(--shadow-md);overflow:hidden}
@@ -63,29 +63,43 @@
   .field-row:hover{background:var(--navy-xpale)}
   .field-row.checked{background:var(--navy-xpale);border-color:rgba(0,48,135,.15)}
   .field-row input[type=checkbox]{width:16px;height:16px;accent-color:var(--navy);cursor:pointer;flex-shrink:0}
-  .field-info{flex:1}
+  .field-info{flex:1;min-width:0}
   .field-label{font-size:13px;font-weight:500;color:var(--gray-700)}
   .field-row.checked .field-label{color:var(--navy);font-weight:600}
-  .field-sample{font-size:10.5px;color:var(--gray-400);font-family:monospace;margin-top:1px;line-height:1.3}
+  .field-sample{font-size:10.5px;color:var(--gray-400);font-family:monospace;margin-top:1px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .field-row.checked .field-sample{color:var(--navy-l)}
   .rec-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:1px 6px;border-radius:3px;background:var(--navy-pale);color:var(--navy);flex-shrink:0}
   .auto-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:1px 6px;border-radius:3px;background:var(--amber-pale);color:var(--amber);flex-shrink:0}
+  .new-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:1px 6px;border-radius:3px;background:var(--green-pale);color:var(--green);flex-shrink:0}
 
   /* ── QUICK ACTIONS ── */
   .quick-actions{display:flex;gap:8px;margin-bottom:14px}
   .quick-btn{flex:1;padding:6px 10px;border-radius:6px;border:1.5px solid var(--gray-200);background:#fff;font-size:11px;font-weight:600;color:var(--gray-600);cursor:pointer;transition:all .15s;text-align:center}
   .quick-btn:hover{border-color:var(--navy);color:var(--navy);background:var(--navy-xpale)}
 
+  /* ── FORMAT SETTINGS ── */
+  .format-section{margin-top:18px;padding-top:16px;border-top:1px solid var(--gray-100)}
+  .format-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .format-row:last-child{margin-bottom:0}
+  .format-label{font-size:13px;font-weight:500;color:var(--gray-700)}
+  .format-label small{display:block;font-size:10.5px;font-weight:400;color:var(--gray-400);margin-top:1px}
+  .format-select{padding:5px 10px;font-size:12px;border:1.5px solid var(--gray-200);border-radius:6px;background:#fff;color:var(--gray-700);font-family:'Inter',system-ui,sans-serif;cursor:pointer}
+  .format-select:focus{outline:none;border-color:var(--navy)}
+  .toggle{position:relative;width:36px;height:20px;flex-shrink:0}
+  .toggle input{opacity:0;width:0;height:0;position:absolute}
+  .toggle .slider{position:absolute;inset:0;background:var(--gray-300);border-radius:20px;transition:.2s;cursor:pointer}
+  .toggle .slider:before{content:'';position:absolute;width:16px;height:16px;left:2px;bottom:2px;background:#fff;border-radius:50%;transition:.2s}
+  .toggle input:checked+.slider{background:var(--navy)}
+  .toggle input:checked+.slider:before{transform:translateX(16px)}
+
   /* ── PREVIEW PANEL ── */
   .preview-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
   .field-count{font-size:11px;font-weight:600;color:var(--navy);background:var(--navy-pale);padding:2px 10px;border-radius:20px}
-  .preview-box{background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:8px;padding:14px 16px;font-family:'Courier New',monospace;font-size:11.5px;color:var(--gray-700);line-height:2;white-space:pre-wrap;min-height:180px;max-height:340px;overflow-y:auto}
+  .preview-box{background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:8px;padding:14px 16px;font-family:'Courier New',monospace;font-size:11.5px;color:var(--gray-700);line-height:2;white-space:pre-wrap;word-break:break-word;min-height:180px;max-height:400px;overflow-y:auto}
   .preview-empty{color:var(--gray-400);font-style:italic;font-family:'Inter',sans-serif;font-size:13px}
-  .preview-line-na{color:var(--gray-400)}
-  .preview-separator{border:none;border-top:1px dashed var(--gray-200);margin:4px 0}
 
   /* ── INSTALL SECTION ── */
-  .install-section{max-width:960px;margin:0 auto 32px;padding:0 20px}
+  .install-section{max-width:1040px;margin:0 auto 32px;padding:0 20px}
   .install-card{background:#fff;border-radius:14px;box-shadow:var(--shadow-md);overflow:hidden}
   .install-blocked{padding:24px;text-align:center}
   .install-blocked-icon{font-size:32px;margin-bottom:10px}
@@ -114,8 +128,18 @@
   .i-step-text strong{color:var(--gray-800)}
   .i-step-text code{background:var(--gray-200);padding:0 3px;border-radius:3px;font-size:10px;font-family:monospace}
 
+  /* ── EXTENSION CTA ── */
+  .ext-cta{max-width:1040px;margin:0 auto 24px;padding:0 20px}
+  .ext-inner{background:linear-gradient(135deg,#e0e7ff 0%,#dbeafe 100%);border:1.5px solid #93c5fd;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px}
+  .ext-icon{font-size:28px;flex-shrink:0}
+  .ext-text{flex:1}
+  .ext-text strong{font-size:13px;color:var(--navy)}
+  .ext-text p{font-size:12px;color:var(--gray-600);margin-top:2px;line-height:1.4}
+  .ext-link{display:inline-flex;align-items:center;gap:4px;padding:7px 14px;background:var(--navy);color:#fff;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;flex-shrink:0;transition:background .15s}
+  .ext-link:hover{background:var(--navy-l)}
+
   /* ── DISCLAIMER ── */
-  .disclaimer{max-width:960px;margin:0 auto 40px;padding:0 20px}
+  .disclaimer{max-width:1040px;margin:0 auto 40px;padding:0 20px}
   .disc-inner{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 16px;font-size:12px;color:#92400e;line-height:1.6}
 
   /* ── FOOTER ── */
@@ -129,7 +153,7 @@
   <div class="header-inner">
     <div class="header-badge">🏥 Veterinary Clinic Tool</div>
     <h1>📋 PracticeHub → PIMS Copier</h1>
-    <p>Choose your fields, preview your output, then drag the button to your bookmarks bar.</p>
+    <p>Choose your fields &amp; format, preview your output, then drag the button to your bookmarks bar.</p>
     <div class="step-indicator">
       <div class="step-dot active" id="s1">1</div>
       <div class="step-line" id="sl1"></div>
@@ -138,7 +162,7 @@
       <div class="step-dot upcoming" id="s3">3</div>
     </div>
     <div class="step-labels">
-      <div class="step-label active">Select Fields</div>
+      <div class="step-label active">Configure</div>
       <div class="step-label" style="width:40px"></div>
       <div class="step-label" id="sl-preview">Preview</div>
       <div class="step-label" style="width:40px"></div>
@@ -156,181 +180,97 @@
       <div class="panel-icon">☑️</div>
       <div>
         <div class="panel-title">Choose Your Fields</div>
-        <div class="panel-subtitle">Select what gets copied to your clipboard</div>
+        <div class="panel-subtitle">22 fields available — select what gets copied</div>
       </div>
     </div>
     <div class="panel-body">
 
       <div class="quick-actions">
-        <button class="quick-btn" onclick="selectAll()">✓ Select All</button>
+        <button class="quick-btn" onclick="selectAll()">✓ All</button>
         <button class="quick-btn" onclick="selectRecommended()">★ Recommended</button>
-        <button class="quick-btn" onclick="clearAll()">✕ Clear All</button>
+        <button class="quick-btn" onclick="selectMinimal()">⚡ Minimal</button>
+        <button class="quick-btn" onclick="clearAll()">✕ Clear</button>
       </div>
 
       <!-- HEADER FIELDS -->
       <div class="field-group">
         <div class="group-label">Prescription Header</div>
-
-        <label class="field-row" id="row-dateWritten">
-          <input type="checkbox" id="f-dateWritten" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Date Written</div>
-            <div class="field-sample">Date Written: 03/09/2026 5:06PM</div>
-          </div>
-          <span class="rec-tag">★ Rec</span>
-        </label>
-
-        <label class="field-row" id="row-approvedBy">
-          <input type="checkbox" id="f-approvedBy" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Approved/Declined By + Email</div>
-            <div class="field-sample">Approved by: Jenny Krista &nbsp;&nbsp; Email: j@g.com</div>
-          </div>
-          <span class="rec-tag">★ Rec</span>
-        </label>
-
-        <label class="field-row" id="row-approval">
-          <input type="checkbox" id="f-approval" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Approval Status</div>
-            <div class="field-sample">Approval: Approved</div>
-          </div>
-          <span class="rec-tag">★ Rec</span>
-        </label>
-
-        <label class="field-row" id="row-prescVet">
-          <input type="checkbox" id="f-prescVet" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Prescribing Veterinarian</div>
-            <div class="field-sample">Prescribing Veterinarian: Shawn Budge</div>
-          </div>
-          <span class="rec-tag">★ Rec</span>
-        </label>
-
-        <label class="field-row" id="row-declineReason">
-          <input type="checkbox" id="f-declineReason" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Decline Reason</div>
-            <div class="field-sample">Decline Reason: Wrong Product (Item or Dosage)</div>
-          </div>
-          <span class="auto-tag">Auto on decline</span>
-        </label>
-
+        <label class="field-row" id="row-rxId"><input type="checkbox" id="f-rxId" onchange="update()"/><div class="field-info"><div class="field-label">Rx ID (DG/DT Number)</div><div class="field-sample">DG125871493</div></div><span class="rec-tag">★ Rec</span></label>
+        <label class="field-row" id="row-approval"><input type="checkbox" id="f-approval" onchange="update()"/><div class="field-info"><div class="field-label">Approval Status</div><div class="field-sample">Approved</div></div><span class="rec-tag">★ Rec</span></label>
+        <label class="field-row" id="row-dateWritten"><input type="checkbox" id="f-dateWritten" onchange="update()"/><div class="field-info"><div class="field-label">Date Written</div><div class="field-sample">03/10/2026 6:30PM</div></div><span class="rec-tag">★ Rec</span></label>
+        <label class="field-row" id="row-dateCreated"><input type="checkbox" id="f-dateCreated" onchange="update()"/><div class="field-info"><div class="field-label">Created On</div><div class="field-sample">03/10/2026 6:30PM</div></div><span class="new-tag">New</span></label>
+        <label class="field-row" id="row-approvedBy"><input type="checkbox" id="f-approvedBy" onchange="update()"/><div class="field-info"><div class="field-label">Approved/Declined By</div><div class="field-sample">Jenny Krista</div></div><span class="rec-tag">★ Rec</span></label>
+        <label class="field-row" id="row-approverEmail"><input type="checkbox" id="f-approverEmail" onchange="update()"/><div class="field-info"><div class="field-label">Approver Email</div><div class="field-sample">jennykkrista@gmail.com</div></div></label>
+        <label class="field-row" id="row-chewyOrder"><input type="checkbox" id="f-chewyOrder" onchange="update()"/><div class="field-info"><div class="field-label">Chewy Order #</div><div class="field-sample">5115246016</div></div><span class="new-tag">New</span></label>
+        <label class="field-row" id="row-prescVet"><input type="checkbox" id="f-prescVet" onchange="update()"/><div class="field-info"><div class="field-label">Prescribing Veterinarian</div><div class="field-sample">Shawn Budge</div></div><span class="rec-tag">★ Rec</span></label>
       </div>
 
-      <!-- PRESCRIPTION FIELDS -->
+      <!-- DECLINE / NOTES -->
+      <div class="field-group">
+        <div class="group-label">Decline &amp; Notes</div>
+        <label class="field-row" id="row-declineReason"><input type="checkbox" id="f-declineReason" onchange="update()"/><div class="field-info"><div class="field-label">Reason to Decline</div><div class="field-sample">Wrong Product (Item or Dosage)</div></div><span class="auto-tag">Auto on decline</span></label>
+        <label class="field-row" id="row-internalNotes"><input type="checkbox" id="f-internalNotes" onchange="update()"/><div class="field-info"><div class="field-label">Internal Notes</div><div class="field-sample">Needs 22-44lbs and has existing Rx with 12 doses</div></div><span class="new-tag">New</span></label>
+      </div>
+
+      <!-- PRESCRIPTION DETAILS -->
       <div class="field-group">
         <div class="group-label">Prescription Details</div>
-
-        <label class="field-row" id="row-rxName">
-          <input type="checkbox" id="f-rxName" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Drug / Product Name</div>
-            <div class="field-sample">Prescription Details: Amlodipine Besylate...</div>
-          </div>
-          <span class="rec-tag">★ Rec</span>
-        </label>
-
-        <label class="field-row" id="row-rxId">
-          <input type="checkbox" id="f-rxId" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Rx ID (DG Number)</div>
-            <div class="field-sample">Rx ID: DG125821231</div>
-          </div>
-          <span class="rec-tag">★ Rec</span>
-        </label>
-
-        <label class="field-row" id="row-prescLine">
-          <input type="checkbox" id="f-prescLine" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Prescription Line + Status</div>
-            <div class="field-sample">Prescription - DG125821231 &nbsp; Status: Active</div>
-          </div>
-        </label>
-
-        <label class="field-row" id="row-expiration">
-          <input type="checkbox" id="f-expiration" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Expiration Date</div>
-            <div class="field-sample">Expiration: 3/09/2027</div>
-          </div>
-          <span class="rec-tag">★ Rec</span>
-        </label>
-
+        <label class="field-row" id="row-rxName"><input type="checkbox" id="f-rxName" onchange="update()"/><div class="field-info"><div class="field-label">Drug / Product Name</div><div class="field-sample">Gabapentin Compounded Chicken Oral Oil Suspension, 100 mg/ml, 30 mL</div></div><span class="rec-tag">★ Rec</span></label>
+        <label class="field-row" id="row-prescLine"><input type="checkbox" id="f-prescLine" onchange="update()"/><div class="field-info"><div class="field-label">Prescription Line + Status</div><div class="field-sample">Prescription - DG125871493 / Status: Active</div></div></label>
+        <label class="field-row" id="row-expiration"><input type="checkbox" id="f-expiration" onchange="update()"/><div class="field-info"><div class="field-label">Expiration Date</div><div class="field-sample">3/09/2027</div></div><span class="rec-tag">★ Rec</span></label>
       </div>
 
-      <!-- QTY FIELDS -->
+      <!-- QUANTITIES -->
       <div class="field-group">
         <div class="group-label">Quantities</div>
-
-        <label class="field-row" id="row-qtyFill">
-          <input type="checkbox" id="f-qtyFill" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Qty per Fill</div>
-            <div class="field-sample">Qty per Fill: 30 tablets</div>
-          </div>
-          <span class="rec-tag">★ Rec</span>
-        </label>
-
-        <label class="field-row" id="row-qtyRemaining">
-          <input type="checkbox" id="f-qtyRemaining" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Qty Remaining</div>
-            <div class="field-sample">Qty Remaining: 60 of 60 tablets</div>
-          </div>
-          <span class="rec-tag">★ Rec</span>
-        </label>
-
-        <label class="field-row" id="row-lastDelivered">
-          <input type="checkbox" id="f-lastDelivered" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Last Delivered</div>
-            <div class="field-sample">Last Delivered: —</div>
-          </div>
-        </label>
-
-        <label class="field-row" id="row-refills">
-          <input type="checkbox" id="f-refills" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Refills Remaining</div>
-            <div class="field-sample">Refills Remaining: 1 of 1</div>
-          </div>
-          <span class="rec-tag">★ Rec</span>
-        </label>
-
-        <label class="field-row" id="row-noOrders">
-          <input type="checkbox" id="f-noOrders" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">No Orders Note</div>
-            <div class="field-sample">No Chewy orders associated with this prescription.</div>
-          </div>
-        </label>
-
+        <label class="field-row" id="row-qtyFill"><input type="checkbox" id="f-qtyFill" onchange="update()"/><div class="field-info"><div class="field-label">Qty per Fill</div><div class="field-sample">30 ml</div></div><span class="rec-tag">★ Rec</span></label>
+        <label class="field-row" id="row-qtyRemaining"><input type="checkbox" id="f-qtyRemaining" onchange="update()"/><div class="field-info"><div class="field-label">Qty Remaining</div><div class="field-sample">30 of 60 ml</div></div><span class="rec-tag">★ Rec</span></label>
+        <label class="field-row" id="row-refills"><input type="checkbox" id="f-refills" onchange="update()"/><div class="field-info"><div class="field-label">Refills Remaining</div><div class="field-sample">1 of 1</div></div><span class="rec-tag">★ Rec</span></label>
+        <label class="field-row" id="row-lastDelivered"><input type="checkbox" id="f-lastDelivered" onchange="update()"/><div class="field-info"><div class="field-label">Last Delivered</div><div class="field-sample">—</div></div></label>
+        <label class="field-row" id="row-noOrders"><input type="checkbox" id="f-noOrders" onchange="update()"/><div class="field-info"><div class="field-label">No Orders Note</div><div class="field-sample">No Chewy orders associated with this prescription.</div></div></label>
       </div>
 
       <!-- INSTRUCTIONS -->
       <div class="field-group">
-        <div class="group-label">Instructions</div>
-
-        <label class="field-row" id="row-instructions">
-          <input type="checkbox" id="f-instructions" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Instructions Printed On Label</div>
-            <div class="field-sample">Instructions Printed On Label: Give 1/4 tablet...</div>
-          </div>
-          <span class="rec-tag">★ Rec</span>
-        </label>
-
-        <label class="field-row" id="row-notes">
-          <input type="checkbox" id="f-notes" onchange="update()"/>
-          <div class="field-info">
-            <div class="field-label">Notes to Pharmacist</div>
-            <div class="field-sample">Notes to Pharmacist (optional): N/A</div>
-          </div>
-          <span class="rec-tag">★ Rec</span>
-        </label>
-
+        <div class="group-label">Usage &amp; Instructions</div>
+        <label class="field-row" id="row-instructions"><input type="checkbox" id="f-instructions" onchange="update()"/><div class="field-info"><div class="field-label">Instructions Printed On Label</div><div class="field-sample">Give 0.3ml by mouth every 12 hours for pain control.</div></div><span class="rec-tag">★ Rec</span></label>
+        <label class="field-row" id="row-pharmacistNotes"><input type="checkbox" id="f-pharmacistNotes" onchange="update()"/><div class="field-info"><div class="field-label">Notes to Pharmacist</div><div class="field-sample">N/A</div></div><span class="rec-tag">★ Rec</span></label>
+        <label class="field-row" id="row-compoundReasons"><input type="checkbox" id="f-compoundReasons" onchange="update()"/><div class="field-info"><div class="field-label">Compound Reasons</div><div class="field-sample">Flavor — pet won't take approved product; Strength — dosage can't be achieved</div></div><span class="new-tag">New</span></label>
       </div>
+
+      <!-- PATIENT / CLIENT -->
+      <div class="field-group">
+        <div class="group-label">Patient &amp; Client</div>
+        <label class="field-row" id="row-submittedBy"><input type="checkbox" id="f-submittedBy" onchange="update()"/><div class="field-info"><div class="field-label">Submitted By</div><div class="field-sample">HomeVetsMD</div></div><span class="new-tag">New</span></label>
+        <label class="field-row" id="row-patientName"><input type="checkbox" id="f-patientName" onchange="update()"/><div class="field-info"><div class="field-label">Patient Name</div><div class="field-sample">Meatloaf (Cat)</div></div><span class="new-tag">New</span></label>
+        <label class="field-row" id="row-clientName"><input type="checkbox" id="f-clientName" onchange="update()"/><div class="field-info"><div class="field-label">Client Name</div><div class="field-sample">Julia Goffredi</div></div><span class="new-tag">New</span></label>
+      </div>
+
+      <!-- FORMAT SETTINGS -->
+      <div class="format-section">
+        <div class="group-label">Output Format</div>
+
+        <div class="format-row">
+          <div class="format-label">Field separator<small>How fields are separated in the clipboard</small></div>
+          <select class="format-select" id="optSeparator" onchange="update()">
+            <option value="newline" selected>New Line</option>
+            <option value="tab">Tab</option>
+            <option value="comma">Comma</option>
+            <option value="pipe">Pipe ( | )</option>
+          </select>
+        </div>
+
+        <div class="format-row">
+          <div class="format-label">Include field labels<small>e.g. "Rx ID: DG125871493" vs "DG125871493"</small></div>
+          <div class="toggle"><input type="checkbox" id="optLabels" checked onchange="update()"/><span class="slider"></span></div>
+        </div>
+
+        <div class="format-row">
+          <div class="format-label">Show copy notification<small>Toast message after copying</small></div>
+          <div class="toggle"><input type="checkbox" id="optNotify" checked onchange="update()"/><span class="slider"></span></div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -340,7 +280,7 @@
       <div class="panel-icon">👁</div>
       <div style="flex:1">
         <div class="panel-title">Live Preview</div>
-        <div class="panel-subtitle">This is exactly what will paste into your PIMS</div>
+        <div class="panel-subtitle">Exactly what pastes into your PIMS</div>
       </div>
       <div class="field-count" id="fieldCount">0 fields</div>
     </div>
@@ -410,6 +350,18 @@
   </div>
 </div>
 
+<!-- EXTENSION CTA -->
+<div class="ext-cta">
+  <div class="ext-inner">
+    <div class="ext-icon">🧩</div>
+    <div class="ext-text">
+      <strong>Want the full Chrome Extension instead?</strong>
+      <p>Same extraction engine, plus an in-browser settings popup, persistent preferences, and automatic updates. No bookmarklet dragging needed.</p>
+    </div>
+    <a class="ext-link" href="https://github.com/copierpims-coder/pims-copier" target="_blank">View Extension →</a>
+  </div>
+</div>
+
 <!-- DISCLAIMER -->
 <div class="disclaimer">
   <div class="disc-inner">
@@ -417,68 +369,120 @@
   </div>
 </div>
 
-<div class="footer">PracticeHub PIMS Copier · v1.5 · Free for veterinary clinic use</div>
+<div class="footer">PracticeHub PIMS Copier · v2.0 · Free for veterinary clinic use</div>
 
 
 <script>
 // ─────────────────────────────────────────────────────────────────────────────
-// FIELD DEFINITIONS
-// Each field: { id, sample, key } — key maps to bookmarklet code segment
+// FIELD DEFINITIONS — aligned with Chrome Extension v1.4 field set
 // ─────────────────────────────────────────────────────────────────────────────
 const FIELDS = [
-  { id:'dateWritten',   sample:'Date Written: 03/09/2026 5:06PM',                              recommended:true  },
-  { id:'approvedBy',    sample:'Approved by: Jenny Krista    Email: jennykkrista@gmail.com',   recommended:true  },
-  { id:'approval',      sample:'Approval: Approved',                                           recommended:true  },
-  { id:'prescVet',      sample:'Prescribing Veterinarian: Shawn Budge',                        recommended:true  },
-  { id:'declineReason', sample:'Decline Reason: Wrong Product (Item or Dosage)',               recommended:false },
-  { id:'rxName',        sample:'Prescription Details: Amlodipine Besylate (Generic) Tablets, 2.5-mg, 1 tablet', recommended:true },
-  { id:'rxId',          sample:'Rx ID: DG125821231',                                           recommended:true  },
-  { id:'prescLine',     sample:'Prescription - DG125821231\nStatus: Active',                   recommended:false },
-  { id:'expiration',    sample:'Expiration: 3/09/2027',                                        recommended:true  },
-  { id:'qtyFill',       sample:'Qty per Fill: 30 tablets',                                     recommended:true  },
-  { id:'qtyRemaining',  sample:'Qty Remaining: 60 of 60 tablets',                              recommended:true  },
-  { id:'lastDelivered', sample:'Last Delivered: —',                                            recommended:false },
-  { id:'refills',       sample:'Refills Remaining: 1 of 1',                                    recommended:true  },
-  { id:'noOrders',      sample:'No Chewy orders associated with this prescription.',            recommended:false },
-  { id:'instructions',  sample:'Instructions Printed On Label: Give 1/4 tablet by mouth every 24 hours. Recheck blood pressure in 3-6 weeks.', recommended:true },
-  { id:'notes',         sample:'Notes to Pharmacist (optional): N/A',                          recommended:true  },
+  { id:'rxId',            label:'Rx ID',                 sample:'DG125871493',                                      recommended:true,  minimal:true  },
+  { id:'approval',        label:'Status',                sample:'Approved',                                         recommended:true,  minimal:true  },
+  { id:'dateWritten',     label:'Date Written',          sample:'03/10/2026 6:30PM',                                recommended:true,  minimal:false },
+  { id:'dateCreated',     label:'Created On',            sample:'03/10/2026 6:30PM',                                recommended:false, minimal:false },
+  { id:'approvedBy',      label:'Approved by',           sample:'Jenny Krista',                                     recommended:true,  minimal:false },
+  { id:'approverEmail',   label:'Email',                 sample:'jennykkrista@gmail.com',                           recommended:false, minimal:false },
+  { id:'chewyOrder',      label:'Chewy Order #',         sample:'5115246016',                                       recommended:false, minimal:false },
+  { id:'prescVet',        label:'Prescribing Vet',       sample:'Shawn Budge',                                      recommended:true,  minimal:false },
+  { id:'declineReason',   label:'Decline Reason',        sample:'Wrong Product (Item or Dosage)',                    recommended:false, minimal:false },
+  { id:'internalNotes',   label:'Internal Notes',        sample:'Needs 22-44lbs and has existing Rx with 12 doses', recommended:false, minimal:false },
+  { id:'rxName',          label:'Rx',                    sample:'Gabapentin Compounded Chicken Oral Oil Suspension, 100 mg/ml, 30 mL', recommended:true, minimal:true },
+  { id:'prescLine',       label:'Prescription',          sample:'Prescription - DG125871493',                       recommended:false, minimal:false },
+  { id:'expiration',      label:'Expiration',            sample:'3/09/2027',                                        recommended:true,  minimal:false },
+  { id:'qtyFill',         label:'Qty per Fill',          sample:'30 ml',                                            recommended:true,  minimal:true  },
+  { id:'qtyRemaining',    label:'Qty Remaining',         sample:'30 of 60 ml',                                      recommended:true,  minimal:false },
+  { id:'refills',         label:'Refills Remaining',     sample:'1 of 1',                                           recommended:true,  minimal:true  },
+  { id:'lastDelivered',   label:'Last Delivered',        sample:'\u2014',                                           recommended:false, minimal:false },
+  { id:'noOrders',        label:'',                      sample:'No Chewy orders associated with this prescription.',recommended:false, minimal:false },
+  { id:'instructions',    label:'Instructions',          sample:'Give 0.3ml by mouth every 12 hours for pain control.', recommended:true, minimal:true },
+  { id:'pharmacistNotes', label:'Notes to Pharmacist',   sample:'N/A',                                              recommended:true,  minimal:false },
+  { id:'compoundReasons', label:'Compound Reasons',      sample:'Flavor \u2014 pet won\'t take approved product; Strength \u2014 dosage can\'t be achieved', recommended:false, minimal:false },
+  { id:'submittedBy',     label:'Submitted By',          sample:'HomeVetsMD',                                       recommended:false, minimal:false },
+  { id:'patientName',     label:'Patient',               sample:'Meatloaf (Cat)',                                   recommended:false, minimal:false },
+  { id:'clientName',      label:'Client',                sample:'Julia Goffredi',                                   recommended:false, minimal:false },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // BOOKMARKLET CODE SEGMENTS — one per field
-// These are the exact lines.push() calls that get included/excluded
+// L=1 means include label, L=0 means value-only mode
 // ─────────────────────────────────────────────────────────────────────────────
 const SEGMENTS = {
-  dateWritten:   `lines.push('Date Written: '+(rx(/Date Written:\\s*(.+?)(?:\\n|Chewy Order|ID:|Created)/i)||NA));`,
-  approvedBy:    `var bi=getApprovedByInfo();lines.push(bi.label+': '+bi.name+'    Email: '+bi.email);`,
-  approval:      `lines.push('Approval: '+(getApprovalStatus()||NA));`,
-  prescVet:      `lines.push('Prescribing Veterinarian: '+(rx(/Prescribing Veterinarian\\s*\\n\\s*(.+?)(?:\\n|$)/i)||NA));`,
-  declineReason: `var dr=rx(/Reason to Decline:\\s*(.+?)(?:\\n|$)/i)||rx(/Reason for Decline:\\s*(.+?)(?:\\n|$)/i);if(dr)lines.push('Decline Reason: '+dr);`,
-  rxName:        `lines.push('Prescription Details: '+(getRxName()||NA));`,
-  rxId:          `var rxid=rx(/\\bID:\\s*(DG\\d{9,})\\b/i)||rx(/Prescription\\s*[-\u2013]\\s*(DG\\d{9,})/i);lines.push('Rx ID: '+(rxid||NA));`,
-  prescLine:     `var rid=rx(/\\bID:\\s*(DG\\d{9,})\\b/i)||rx(/Prescription\\s*[-\u2013]\\s*(DG\\d{9,})/i);var rs=rx(/Prescription\\s*-\\s*DG\\d+\\s*\\n\\s*(Active|Declined|Inactive|Expired)/i);lines.push('Prescription - '+(rid||NA));lines.push('Status: '+(rs||NA));`,
-  expiration:    `lines.push('Expiration: '+(rx(/Expiration\\s*\\n\\s*(\\d{1,2}\\/\\d{2}\\/\\d{4})/i)||rx(/Expiration:\\s*(\\d{1,2}\\/\\d{2}\\/\\d{4})/i)||NA));`,
-  qtyFill:       `lines.push('Qty per Fill: '+(getQtyPerFill()||NA));`,
-  qtyRemaining:  `lines.push('Qty Remaining: '+(getQtyRemaining()||NA));`,
-  lastDelivered: `lines.push('Last Delivered: '+(rx(/Last delivered\\s*\\n\\s*(.+?)(?:\\n|$)/i)||NA));`,
-  refills:       `lines.push('Refills Remaining: '+(rx(/Refills remaining\\s*\\n\\s*(.+?)(?:\\n|$)/i)||NA));`,
-  noOrders:      `if(RAW.includes('No Chewy orders associated with this prescription.'))lines.push('No Chewy orders associated with this prescription.');`,
-  instructions:  `lines.push('Instructions Printed On Label: '+(getBetween(/Instructions Printed On Label\\n/i,/Notes to Pharmacist/i)||NA));`,
-  notes:         `lines.push('Notes to Pharmacist (optional): '+(rx(/Notes to Pharmacist[^)]*\\)\\s*\\n\\s*(.+?)(?:\\n|$)/i)||rx(/Notes to Pharmacist\\s*\\n\\s*(.+?)(?:\\n|$)/i)||NA));`,
+  rxId:            { withLabel: `lines.push('Rx ID: '+(rxid||NA));`,             noLabel: `lines.push(rxid||NA);` },
+  approval:        { withLabel: `lines.push('Status: '+(getApprovalStatus()||NA));`, noLabel: `lines.push(getApprovalStatus()||NA);` },
+  dateWritten:     { withLabel: `lines.push('Date Written: '+(rx(/Date Written:\\s*(.+?)(?:\\n|Chewy Order|ID:|Created)/i)||NA));`,
+                     noLabel:   `lines.push(rx(/Date Written:\\s*(.+?)(?:\\n|Chewy Order|ID:|Created)/i)||NA);` },
+  dateCreated:     { withLabel: `lines.push('Created On: '+(rx(/Created on\\s*\\n?\\s*(.+?)(?:\\n|$)/i)||rx(/Created:\\s*(.+?)(?:\\n|$)/i)||NA));`,
+                     noLabel:   `lines.push(rx(/Created on\\s*\\n?\\s*(.+?)(?:\\n|$)/i)||rx(/Created:\\s*(.+?)(?:\\n|$)/i)||NA);` },
+  approvedBy:      { withLabel: `var bi=getApprovedByInfo();lines.push(bi.label+': '+bi.name);`,
+                     noLabel:   `var bi=getApprovedByInfo();lines.push(bi.name);` },
+  approverEmail:   { withLabel: `var bei=getApprovedByInfo();lines.push('Email: '+bei.email);`,
+                     noLabel:   `var bei=getApprovedByInfo();lines.push(bei.email);` },
+  chewyOrder:      { withLabel: `var co=rx(/Chewy Order\\s*#?:?\\s*(\\d{7,})/i)||rx(/Order\\s*#\\s*(\\d{7,})/i);if(co)lines.push('Chewy Order #: '+co);`,
+                     noLabel:   `var co=rx(/Chewy Order\\s*#?:?\\s*(\\d{7,})/i)||rx(/Order\\s*#\\s*(\\d{7,})/i);if(co)lines.push(co);` },
+  prescVet:        { withLabel: `lines.push('Prescribing Vet: '+(rx(/Prescribing Veterinarian\\s*\\n\\s*(.+?)(?:\\n|$)/i)||NA));`,
+                     noLabel:   `lines.push(rx(/Prescribing Veterinarian\\s*\\n\\s*(.+?)(?:\\n|$)/i)||NA);` },
+  declineReason:   { withLabel: `var dr=rx(/Reason to Decline:\\s*(.+?)(?:\\n|$)/i)||rx(/Reason for Decline:\\s*(.+?)(?:\\n|$)/i);if(dr)lines.push('Decline Reason: '+dr);`,
+                     noLabel:   `var dr=rx(/Reason to Decline:\\s*(.+?)(?:\\n|$)/i)||rx(/Reason for Decline:\\s*(.+?)(?:\\n|$)/i);if(dr)lines.push(dr);` },
+  internalNotes:   { withLabel: `var itn=rx(/Internal Notes\\s*\\n\\s*(.+?)(?:\\n|$)/i)||rx(/Internal Notes:\\s*(.+?)(?:\\n|$)/i);if(itn)lines.push('Internal Notes: '+itn);`,
+                     noLabel:   `var itn=rx(/Internal Notes\\s*\\n\\s*(.+?)(?:\\n|$)/i)||rx(/Internal Notes:\\s*(.+?)(?:\\n|$)/i);if(itn)lines.push(itn);` },
+  rxName:          { withLabel: `lines.push('Rx: '+(getRxName()||NA));`,          noLabel: `lines.push(getRxName()||NA);` },
+  prescLine:       { withLabel: `var rs=rx(/Prescription\\s*-\\s*DG\\d+\\s*\\n\\s*(Active|Declined|Inactive|Expired)/i);lines.push('Prescription - '+(rxid||NA));lines.push('Status: '+(rs||NA));`,
+                     noLabel:   `var rs=rx(/Prescription\\s*-\\s*DG\\d+\\s*\\n\\s*(Active|Declined|Inactive|Expired)/i);lines.push((rxid||NA));lines.push(rs||NA);` },
+  expiration:      { withLabel: `lines.push('Expiration: '+(rx(/Expiration\\s*\\n\\s*(\\d{1,2}\\/\\d{2}\\/\\d{4})/i)||rx(/Expiration:\\s*(\\d{1,2}\\/\\d{2}\\/\\d{4})/i)||NA));`,
+                     noLabel:   `lines.push(rx(/Expiration\\s*\\n\\s*(\\d{1,2}\\/\\d{2}\\/\\d{4})/i)||rx(/Expiration:\\s*(\\d{1,2}\\/\\d{2}\\/\\d{4})/i)||NA);` },
+  qtyFill:         { withLabel: `lines.push('Qty per Fill: '+(getQtyPerFill()||NA));`,  noLabel: `lines.push(getQtyPerFill()||NA);` },
+  qtyRemaining:    { withLabel: `lines.push('Qty Remaining: '+(getQtyRemaining()||NA));`, noLabel: `lines.push(getQtyRemaining()||NA);` },
+  refills:         { withLabel: `lines.push('Refills Remaining: '+(rx(/Refills remaining\\s*\\n\\s*(.+?)(?:\\n|$)/i)||NA));`,
+                     noLabel:   `lines.push(rx(/Refills remaining\\s*\\n\\s*(.+?)(?:\\n|$)/i)||NA);` },
+  lastDelivered:   { withLabel: `lines.push('Last Delivered: '+(rx(/Last delivered\\s*\\n\\s*(.+?)(?:\\n|$)/i)||NA));`,
+                     noLabel:   `lines.push(rx(/Last delivered\\s*\\n\\s*(.+?)(?:\\n|$)/i)||NA);` },
+  noOrders:        { withLabel: `if(RAW.includes('No Chewy orders associated with this prescription.'))lines.push('No Chewy orders associated with this prescription.');`,
+                     noLabel:   `if(RAW.includes('No Chewy orders associated with this prescription.'))lines.push('No Chewy orders associated with this prescription.');` },
+  instructions:    { withLabel: `lines.push('Instructions: '+(getBetween(/Instructions Printed On Label\\n/i,/Notes to Pharmacist/i)||NA));`,
+                     noLabel:   `lines.push(getBetween(/Instructions Printed On Label\\n/i,/Notes to Pharmacist/i)||NA);` },
+  pharmacistNotes: { withLabel: `lines.push('Notes to Pharmacist: '+(rx(/Notes to Pharmacist[^)]*\\)\\s*\\n\\s*(.+?)(?:\\n|$)/i)||rx(/Notes to Pharmacist\\s*\\n\\s*(.+?)(?:\\n|$)/i)||NA));`,
+                     noLabel:   `lines.push(rx(/Notes to Pharmacist[^)]*\\)\\s*\\n\\s*(.+?)(?:\\n|$)/i)||rx(/Notes to Pharmacist\\s*\\n\\s*(.+?)(?:\\n|$)/i)||NA);` },
+  compoundReasons: { withLabel: `var cr=rx(/Compound(?:ing)?\\s*Reason[s]?[:\\s]*\\n?\\s*(.+?)(?:\\n\\n|Submitted|$)/is);if(cr)lines.push('Compound Reasons: '+cr.replace(/\\n/g,'; '));`,
+                     noLabel:   `var cr=rx(/Compound(?:ing)?\\s*Reason[s]?[:\\s]*\\n?\\s*(.+?)(?:\\n\\n|Submitted|$)/is);if(cr)lines.push(cr.replace(/\\n/g,'; '));` },
+  submittedBy:     { withLabel: `var sb=rx(/Submitted by\\s*\\n?\\s*(.+?)(?:\\n|$)/i);if(sb)lines.push('Submitted By: '+sb);`,
+                     noLabel:   `var sb=rx(/Submitted by\\s*\\n?\\s*(.+?)(?:\\n|$)/i);if(sb)lines.push(sb);` },
+  patientName:     { withLabel: `var pn=rx(/Patient(?:\\s*Name)?\\s*\\n?\\s*:?\\s*(.+?)(?:\\n|$)/i);if(pn&&pn.length>1)lines.push('Patient: '+pn);`,
+                     noLabel:   `var pn=rx(/Patient(?:\\s*Name)?\\s*\\n?\\s*:?\\s*(.+?)(?:\\n|$)/i);if(pn&&pn.length>1)lines.push(pn);` },
+  clientName:      { withLabel: `var cn=rx(/Client(?:\\s*Name)?\\s*\\n?\\s*:?\\s*(.+?)(?:\\n|$)/i);if(cn&&cn.length>1)lines.push('Client: '+cn);`,
+                     noLabel:   `var cn=rx(/Client(?:\\s*Name)?\\s*\\n?\\s*:?\\s*(.+?)(?:\\n|$)/i);if(cn&&cn.length>1)lines.push(cn);` },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
 // BOOKMARKLET CORE (extraction engine — always included)
 // ─────────────────────────────────────────────────────────────────────────────
-const CORE = `javascript:(function(){if(!window.location.hostname.includes('chewyhealth.com')){alert('This bookmarklet only works on chewyhealth.com');return;}function findPanel(){var cs=Array.from(document.querySelectorAll('div,section,article,main')).filter(function(el){var t=el.innerText||'';return t.includes('Submitted by')&&t.includes('View PDF')&&t.includes('Date Written')&&t.includes('Prescription Details');}).sort(function(a,b){return(a.innerText||'').length-(b.innerText||'').length;});return cs[0]||document.body;}var PANEL=findPanel();var RAW=PANEL.innerText||PANEL.textContent||'';if(!RAW.includes('Date Written')){alert('No prescription data found. Open a Review panel in PracticeHub first.');return;}var NA='(not found)';function rx(pat,txt){txt=txt||RAW;var m=(txt||'').match(pat);return m?m[1].trim():null;}function getBetween(sp,ep,txt){txt=txt||RAW;var sm=txt.match(sp);if(!sm)return null;var after=txt.slice(sm.index+sm[0].length);var em=after.match(ep);return(em?after.slice(0,em.index):after).trim();}function getApprovedByInfo(){var isD=/Declined by:/i.test(RAW);var lbl=isD?'Declined by':'Approved by';var nm=RAW.match(/(?:Approved|Declined) by:\\s*(.*?)(?:\\n|Email:|$)/i);var name=nm?nm[1].trim():'-';name=name.replace(/\\s*email\\s*:.*/i,'').trim();var em=RAW.match(/Email:\\s*([^\\s\\n]+)/i);return{label:lbl,name:name||'-',email:em?em[1].trim():'-'};}function getApprovalStatus(){var sw=['Approved','Declined'];var bes=Array.from(PANEL.querySelectorAll('button,[role="button"],[class*="badge"],[class*="status"],[class*="chip"],[class*="pill"],[class*="btn"]')).filter(function(e){return e.offsetParent!==null;});for(var i=0;i<bes.length;i++){var t=(bes[i].textContent||'').trim();if(sw.includes(t))return t;}if(/Approved by:/i.test(RAW)){var n=rx(/Approved by:\\s*(.+?)(?:\\n|Email:|$)/i);if(n&&n!=='-')return'Approved';}if(/Declined by:/i.test(RAW))return'Declined';return null;}function getRxName(){var ds=getBetween(/\\bActive\\n/i,/\\nExpiration\\n/i);if(ds){var ls=ds.split('\\n').map(function(l){return l.trim();}).filter(Boolean);for(var i=0;i<ls.length;i++){if(/\\d+\\.?\\d*\\s*(mg|mcg|ml|g)/i.test(ls[i])&&ls[i].length>5&&ls[i].length<300)return ls[i];}if(ls[0])return ls[0];}var m=RAW.match(/Active\\s+(.+?)\\s+Expiration/is);if(m){var c=m[1].trim().split('\\n')[0].trim();if(c.length>5)return c;}return null;}function getQtyPerFill(){var after=getBetween(/Qty per fill\\n/i,/Qty remaining\\n/i);if(after){var ls=after.split('\\n').map(function(l){return l.trim();}).filter(Boolean);for(var i=0;i<ls.length;i++){if(/\\d/.test(ls[i])&&!/tooltip/i.test(ls[i])&&!/quantity of/i.test(ls[i])&&!/number of/i.test(ls[i]))return ls[i];}}return null;}function getQtyRemaining(){var after=getBetween(/Qty remaining\\n/i,/Last delivered\\n/i);if(after){var ls=after.split('\\n').map(function(l){return l.trim();}).filter(Boolean);for(var i=0;i<ls.length;i++){if(/\\d/.test(ls[i])&&!/tooltip/i.test(ls[i])&&!/quantity of/i.test(ls[i])&&!/number of/i.test(ls[i]))return ls[i];}}return null;}`;
+const CORE = `javascript:(function(){if(!window.location.hostname.includes('chewyhealth.com')){alert('This bookmarklet only works on chewyhealth.com');return;}function findPanel(){var cs=Array.from(document.querySelectorAll('div,section,article,main')).filter(function(el){var t=el.innerText||'';return t.includes('Submitted by')&&t.includes('View PDF')&&t.includes('Date Written')&&t.includes('Prescription Details');}).sort(function(a,b){return(a.innerText||'').length-(b.innerText||'').length;});return cs[0]||document.body;}var PANEL=findPanel();var RAW=PANEL.innerText||PANEL.textContent||'';if(!RAW.includes('Date Written')){alert('No prescription data found. Open a Review panel in PracticeHub first.');return;}var NA='(not found)';function rx(pat,txt){txt=txt||RAW;var m=(txt||'').match(pat);return m?m[1].trim():null;}function getBetween(sp,ep,txt){txt=txt||RAW;var sm=txt.match(sp);if(!sm)return null;var after=txt.slice(sm.index+sm[0].length);var em=after.match(ep);return(em?after.slice(0,em.index):after).trim();}function getApprovedByInfo(){var isD=/Declined by:/i.test(RAW);var lbl=isD?'Declined by':'Approved by';var nm=RAW.match(/(?:Approved|Declined) by:\\s*(.*?)(?:\\n|Email:|$)/i);var name=nm?nm[1].trim():'-';name=name.replace(/\\s*email\\s*:.*/i,'').trim();var em=RAW.match(/Email:\\s*([^\\s\\n]+)/i);return{label:lbl,name:name||'-',email:em?em[1].trim():'-'};}function getApprovalStatus(){var sw=['Approved','Declined'];var bes=Array.from(PANEL.querySelectorAll('button,[role="button"],[class*="badge"],[class*="status"],[class*="chip"],[class*="pill"],[class*="btn"]')).filter(function(e){return e.offsetParent!==null;});for(var i=0;i<bes.length;i++){var t=(bes[i].textContent||'').trim();if(sw.includes(t))return t;}if(/Approved by:/i.test(RAW)){var n=rx(/Approved by:\\s*(.+?)(?:\\n|Email:|$)/i);if(n&&n!=='-')return'Approved';}if(/Declined by:/i.test(RAW))return'Declined';return null;}function getRxName(){var ds=getBetween(/\\bActive\\n/i,/\\nExpiration\\n/i);if(ds){var ls=ds.split('\\n').map(function(l){return l.trim();}).filter(Boolean);for(var i=0;i<ls.length;i++){if(/\\d+\\.?\\d*\\s*(mg|mcg|ml|g)/i.test(ls[i])&&ls[i].length>5&&ls[i].length<300)return ls[i];}if(ls[0])return ls[0];}var m=RAW.match(/Active\\s+(.+?)\\s+Expiration/is);if(m){var c=m[1].trim().split('\\n')[0].trim();if(c.length>5)return c;}return null;}function getQtyPerFill(){var after=getBetween(/Qty per fill\\n/i,/Qty remaining\\n/i);if(after){var ls=after.split('\\n').map(function(l){return l.trim();}).filter(Boolean);for(var i=0;i<ls.length;i++){if(/\\d/.test(ls[i])&&!/tooltip/i.test(ls[i])&&!/quantity of/i.test(ls[i])&&!/number of/i.test(ls[i]))return ls[i];}}return null;}function getQtyRemaining(){var after=getBetween(/Qty remaining\\n/i,/Last delivered\\n/i);if(after){var ls=after.split('\\n').map(function(l){return l.trim();}).filter(Boolean);for(var i=0;i<ls.length;i++){if(/\\d/.test(ls[i])&&!/tooltip/i.test(ls[i])&&!/quantity of/i.test(ls[i])&&!/number of/i.test(ls[i]))return ls[i];}}return null;}var rxid=rx(/\\bID:\\s*(D[GT]\\d{9,})\\b/i)||rx(/Prescription\\s*[-\\u2013]\\s*(D[GT]\\d{9,})/i);`;
 
-const FOOTER = `var fc=lines.filter(function(l){return!l.endsWith(NA)&&l.trim();}).length;if(fc<2){alert('Not enough data found. Open a prescription Review panel first.');return;}var out=lines.join('\\n');navigator.clipboard.writeText(out).then(function(){var isD=out.includes('Approval: Declined');var t=document.createElement('div');t.innerText=isD?'📋 Declined Rx copied':'✅ Prescription copied!';Object.assign(t.style,{position:'fixed',top:'20px',right:'20px',zIndex:'999999',background:isD?'#991b1b':'#003087',color:'#fff',padding:'12px 20px',borderRadius:'8px',fontFamily:'system-ui,sans-serif',fontSize:'14px',fontWeight:'600',boxShadow:'0 4px 16px rgba(0,0,0,.25)',transition:'opacity 0.4s'});document.body.appendChild(t);setTimeout(function(){t.style.opacity='0';},2500);setTimeout(function(){t.remove();},3000);}).catch(function(){prompt('Clipboard blocked — copy manually:',out);});})();`;
+function buildFooter(showNotification, separator) {
+  const sepMap = { newline: '\\n', tab: '\\t', comma: ', ', pipe: ' | ' };
+  const sep = sepMap[separator] || '\\n';
+  const joinExpr = `var out=lines.join('${sep}');`;
+
+  const notifyBlock = showNotification
+    ? `var isD=out.includes('Declined');var t=document.createElement('div');t.innerText=isD?'\\u{1f4cb} Declined Rx copied':'\\u2705 Prescription copied!';Object.assign(t.style,{position:'fixed',top:'20px',right:'20px',zIndex:'999999',background:isD?'#991b1b':'#003087',color:'#fff',padding:'12px 20px',borderRadius:'8px',fontFamily:'system-ui,sans-serif',fontSize:'14px',fontWeight:'600',boxShadow:'0 4px 16px rgba(0,0,0,.25)',transition:'opacity 0.4s'});document.body.appendChild(t);setTimeout(function(){t.style.opacity='0';},2500);setTimeout(function(){t.remove();},3000);`
+    : '';
+
+  return `var fc=lines.filter(function(l){return!l.endsWith(NA)&&l.trim();}).length;if(fc<2){alert('Not enough data found. Open a prescription Review panel first.');return;}${joinExpr}navigator.clipboard.writeText(out).then(function(){${notifyBlock}}).catch(function(){prompt('Clipboard blocked \\u2014 copy manually:',out);});})();`;
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
-// STATE & INIT
+// STATE & UPDATE
 // ─────────────────────────────────────────────────────────────────────────────
 function getChecked() {
   return FIELDS.filter(f => document.getElementById('f-'+f.id)?.checked).map(f => f.id);
+}
+
+function getSettings() {
+  return {
+    separator: document.getElementById('optSeparator').value,
+    includeLabels: document.getElementById('optLabels').checked,
+    showNotification: document.getElementById('optNotify').checked,
+  };
 }
 
 function selectAll() {
@@ -491,6 +495,11 @@ function selectRecommended() {
   update();
 }
 
+function selectMinimal() {
+  FIELDS.forEach(f => { const el = document.getElementById('f-'+f.id); if(el) el.checked = !!f.minimal; });
+  update();
+}
+
 function clearAll() {
   FIELDS.forEach(f => { const el = document.getElementById('f-'+f.id); if(el) el.checked = false; });
   update();
@@ -498,6 +507,7 @@ function clearAll() {
 
 function update() {
   const checked = getChecked();
+  const settings = getSettings();
 
   // Update row styles
   FIELDS.forEach(f => {
@@ -506,41 +516,40 @@ function update() {
     if(row && cb) row.classList.toggle('checked', cb.checked);
   });
 
-  // Update preview
-  updatePreview(checked);
-
-  // Update bookmarklet
-  updateBookmarklet(checked);
-
-  // Update field count
+  updatePreview(checked, settings);
+  updateBookmarklet(checked, settings);
   document.getElementById('fieldCount').textContent = checked.length + ' field' + (checked.length===1?'':'s');
-
-  // Update install section
   updateInstall(checked);
-
-  // Update step indicators
   updateSteps(checked);
 }
 
-function updatePreview(checked) {
+function updatePreview(checked, settings) {
   const box = document.getElementById('previewBox');
   if(checked.length === 0) {
     box.innerHTML = '<span class="preview-empty">Select fields on the left to see your preview...</span>';
     return;
   }
+  const sepMap = { newline: '\n', tab: '\t', comma: ', ', pipe: ' | ' };
+  const sep = sepMap[settings.separator] || '\n';
   const lines = [];
   checked.forEach(id => {
     const f = FIELDS.find(x => x.id === id);
-    if(f) lines.push(f.sample);
+    if(!f) return;
+    if(f.label && settings.includeLabels) {
+      lines.push(f.label + ': ' + f.sample);
+    } else {
+      lines.push(f.sample);
+    }
   });
-  box.textContent = lines.join('\n');
+  box.textContent = lines.join(sep);
 }
 
-function updateBookmarklet(checked) {
+function updateBookmarklet(checked, settings) {
   if(checked.length === 0) return;
-  // Build the lines array and assembly
-  const assemblyParts = checked.map(id => SEGMENTS[id]).filter(Boolean);
-  const bm = CORE + 'var lines=[];' + assemblyParts.join('') + FOOTER;
+  const mode = settings.includeLabels ? 'withLabel' : 'noLabel';
+  const assemblyParts = checked.map(id => SEGMENTS[id]?.[mode]).filter(Boolean);
+  const footer = buildFooter(settings.showNotification, settings.separator);
+  const bm = CORE + 'var lines=[];' + assemblyParts.join('') + footer;
   const btn = document.getElementById('bookmarklet-btn');
   if(btn) btn.href = bm;
 }
@@ -555,7 +564,7 @@ function updateInstall(checked) {
   } else {
     blocked.style.display = 'none';
     ready.style.display = 'block';
-    sub.textContent = checked.length + ' field' + (checked.length===1?'':'s') + ' selected — drag the button to install';
+    sub.textContent = checked.length + ' field' + (checked.length===1?'':'s') + ' selected \u2014 drag the button to install';
   }
 }
 
@@ -580,7 +589,7 @@ function updateSteps(checked) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// INIT — select recommended fields on load
+// INIT
 // ─────────────────────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
   selectRecommended();
