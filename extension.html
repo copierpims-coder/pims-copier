@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PracticeHub → PIMS Copier</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8f9fc;
+      color: #1a1f36;
+      line-height: 1.6;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #1565C0 0%, #0d47a1 100%);
+      color: #fff;
+      padding: 60px 24px 70px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.88;
+      max-width: 560px;
+      margin: 0 auto 32px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+
+    .btn-primary {
+      background: #fff;
+      color: #1565C0;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    /* ── Demo strip ── */
+    .demo {
+      background: #fff;
+      border-bottom: 1px solid #e8eaf0;
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .demo-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .demo-card {
+      background: #f4f6fb;
+      border: 1px solid #dde1ee;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+    }
+
+    .demo-card h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .demo-field { font-size: 0.85rem; color: #555; padding: 3px 0; }
+    .demo-field span { color: #1a1f36; font-weight: 500; }
+
+    .demo-btn {
+      background: #1565C0;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: default;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .demo-output {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+    }
+
+    .demo-output h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #8b949e;
+      margin-bottom: 10px;
+    }
+
+    .demo-output .line { font-size: 0.82rem; padding: 2px 0; }
+    .demo-output .line .key { color: #79c0ff; }
+    .demo-output .line .val { color: #c9d1d9; }
+
+    .arrow { font-size: 1.8rem; color: #1565C0; }
+
+    /* ── Features ── */
+    .features {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 24px;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #1565C0;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      letter-spacing: -0.02em;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: #fff;
+      border: 1px solid #e8eaf0;
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .feature-icon {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+
+    .feature-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .feature-card p {
+      font-size: 0.88rem;
+      color: #666;
+    }
+
+    /* ── Rx types ── */
+    .rx-types {
+      background: #fff;
+      border-top: 1px solid #e8eaf0;
+      border-bottom: 1px solid #e8eaf0;
+      padding: 60px 24px;
+    }
+
+    .rx-grid {
+      max-width: 800px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 16px;
+    }
+
+    .rx-card {
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .rx-card.approved { background: #e8f5e9; border: 1px solid #a5d6a7; }
+    .rx-card.declined { background: #fce4ec; border: 1px solid #f48fb1; }
+    .rx-card.compound { background: #e3f2fd; border: 1px solid #90caf9; }
+    .rx-card.vetdiet  { background: #f3e5f5; border: 1px solid #ce93d8; }
+
+    .rx-card .badge {
+      display: inline-block;
+      border-radius: 20px;
+      padding: 3px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .approved .badge { background: #2e7d32; color: #fff; }
+    .declined .badge { background: #c62828; color: #fff; }
+    .compound .badge { background: #1565C0; color: #fff; }
+    .vetdiet  .badge { background: #6a1b9a; color: #fff; }
+
+    .rx-card p { font-size: 0.82rem; color: #555; }
+
+    /* ── Install ── */
+    .install {
+      max-width: 700px;
+      margin: 60px auto;
+      padding: 0 24px;
+    }
+
+    .install-steps {
+      background: #fff;
+      border: 1px solid #e8eaf0;
+      border-radius: 14px;
+      padding: 32px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 22px;
+      align-items: flex-start;
+    }
+
+    .step:last-child { margin-bottom: 0; }
+
+    .step-num {
+      width: 30px;
+      height: 30px;
+      min-width: 30px;
+      background: #1565C0;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .step-text h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 2px; }
+    .step-text p { font-size: 0.85rem; color: #666; }
+    .step-text code {
+      background: #f0f2f8;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 0.82rem;
+      color: #1565C0;
+    }
+
+    /* ── Disclaimer ── */
+    .disclaimer {
+      max-width: 700px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+    }
+
+    .disclaimer-box {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-radius: 10px;
+      padding: 18px 20px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: #1a1f36;
+      color: #8b949e;
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 0.85rem;
+    }
+
+    footer a { color: #79c0ff; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.8rem; }
+      .demo-inner { grid-template-columns: 1fr; }
+      .arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">Chrome Extension · v1.4</div>
+    <h1>PracticeHub → PIMS Copier</h1>
+    <p>One-click prescription data copy for veterinary clinics. Stop retyping. Start pasting.</p>
+    <div class="btn-group">
+      <a href="https://chromewebstore.google.com/detail/practicehub-pims-copier/liacchehklnnnidadhjmlljokeijjfdo" class="btn btn-primary">
+        🧩 Add to Chrome
+      </a>
+      <a href="https://github.com/copierpims-coder/pims-copier" class="btn btn-secondary">
+        ⬇️ Download ZIP
+      </a>
+    </div>
+  </section>
+
+  <!-- Demo -->
+  <section class="demo">
+    <div class="demo-inner">
+      <div class="demo-card">
+        <h4>PracticeHub Review</h4>
+        <div class="demo-field">Rx ID: <span>DG125695537</span></div>
+        <div class="demo-field">Status: <span>Approved</span></div>
+        <div class="demo-field">Approved by: <span>Erika Olney</span></div>
+        <div class="demo-field">Product: <span>Apoquel 16mg, 30ct</span></div>
+        <div class="demo-field">Expiration: <span>03/06/2027</span></div>
+        <br>
+        <div class="demo-btn">📋 Copy to PIMS</div>
+      </div>
+
+      <div class="arrow">→</div>
+
+      <div class="demo-output">
+        <h4>Clipboard — Paste into PIMS</h4>
+        <div class="line"><span class="key">Rx ID:</span> <span class="val">DG125695537</span></div>
+        <div class="line"><span class="key">Status:</span> <span class="val">Approved</span></div>
+        <div class="line"><span class="key">Approved By:</span> <span class="val">Erika Olney</span></div>
+        <div class="line"><span class="key">Prescribing Vet:</span> <span class="val">Shawn Budge</span></div>
+        <div class="line"><span class="key">Rx:</span> <span class="val">Apoquel 16mg, 30ct</span></div>
+        <div class="line"><span class="key">Expiration:</span> <span class="val">03/06/2027</span></div>
+        <div class="line"><span class="key">Qty per Fill:</span> <span class="val">30 tablets</span></div>
+        <div class="line"><span class="key">Instructions:</span> <span class="val">1 tab daily</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="section-label">Why clinics love it</div>
+    <div class="section-title">Built for your workflow</div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>One click</h3>
+        <p>A "Copy to PIMS" button appears directly in the PracticeHub review modal. No extra steps.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎛️</div>
+        <h3>Fully customizable</h3>
+        <p>Choose exactly which fields to copy, your separator format, and whether to include labels.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Private by design</h3>
+        <p>All processing happens locally in your browser. No data is collected or sent anywhere.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h3>20+ fields</h3>
+        <p>Rx ID, prescribing vet, drug name, qty, refills, instructions, decline reason, and more.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rx Types -->
+  <section class="rx-types">
+    <div class="section-label">Coverage</div>
+    <div class="section-title">All prescription types supported</div>
+    <div class="rx-grid">
+      <div class="rx-card approved">
+        <div class="badge">Approved</div>
+        <p>Full field extraction including approver name and Chewy order number.</p>
+      </div>
+      <div class="rx-card declined">
+        <div class="badge">Declined</div>
+        <p>Captures decline reason, internal notes, and declined-by information.</p>
+      </div>
+      <div class="rx-card compound">
+        <div class="badge">Compounded</div>
+        <p>Includes compound reasons for use alongside standard Rx fields.</p>
+      </div>
+      <div class="rx-card vetdiet">
+        <div class="badge">Vet Diet</div>
+        <p>Handles DT-prefixed veterinary diet products with their unique layout.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Install -->
+  <section class="install">
+    <div class="section-label">Setup</div>
+    <div class="section-title">Install in under a minute</div>
+    <div class="install-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <h4>Add to Chrome</h4>
+          <p>Click "Add to Chrome" above, or download the ZIP from GitHub and load it unpacked.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <h4>Open any prescription in PracticeHub</h4>
+          <p>Click Review on any prescription — the <strong>Copy to PIMS</strong> button appears next to View PDF automatically.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <h4>Click and paste</h4>
+          <p>Click Copy to PIMS, then paste into your PIMS with <code>Ctrl+V</code>. Done.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">
+          <h4>Customize your fields</h4>
+          <p>Click the extension icon in your toolbar to choose which fields to include and your preferred format.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Disclaimer -->
+  <section class="disclaimer">
+    <div class="disclaimer-box">
+      ⚠️ <strong>Always verify.</strong> This tool copies data from the PracticeHub screen as a workflow convenience. Always confirm copied fields against the original PracticeHub record before saving to your PIMS. Clinical accuracy is the responsibility of the reviewing veterinarian or credentialed staff member. Not affiliated with Chewy, Inc.
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>PracticeHub → PIMS Copier · <a href="privacy-policy.html">Privacy Policy</a> · <a href="https://github.com/copierpims-coder/pims-copier">GitHub</a> · Questions? <a href="mailto:copierpims@gmail.com">copierpims@gmail.com</a></p>
+    <p style="margin-top:6px; font-size:0.78rem;">Not affiliated with Chewy, Inc.</p>
+  </footer>
+
+</body>
+</html>
