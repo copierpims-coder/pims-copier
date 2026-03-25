@@ -2,7 +2,12 @@
 
 One-click copy of prescription data from Chewy PracticeHub to your clipboard, ready to paste into any PIMS.
 
-## Install (while pending Chrome Web Store approval)
+## Install
+
+1. Install from the [Chrome Web Store](https://chromewebstore.google.com/search/PracticeHub%20%E2%86%92%20PIMS%20Copier)
+2. Go to PracticeHub — the **Copy to PIMS** button will appear on any prescription review page
+
+### Manual Install (alternative)
 
 1. Click the green **Code** button above → **Download ZIP**
 2. Unzip the downloaded folder
@@ -10,7 +15,6 @@ One-click copy of prescription data from Chewy PracticeHub to your clipboard, re
 4. Toggle on **Developer mode** (top right)
 5. Click **Load unpacked**
 6. Select the unzipped folder (the one containing `manifest.json`)
-7. Go to PracticeHub — the **Copy to PIMS** button will appear on any prescription review page
 
 ## How to Use
 
