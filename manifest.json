@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "PracticeHub → PIMS Copier",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "One-click copy of prescription data from Chewy PracticeHub to your PIMS clipboard.",
   "permissions": [
     "storage",

@@ -685,6 +685,7 @@
         showToast(`Copied ${fields.length} fields to clipboard`);
       }
       console.log('[PIMS Copier] Copied:', fields.map(f => `${f.label}: ${f.value}`).join(' | '));
+      recordCopyAndMaybePrompt(); // ← feedback survey (additive, safe; never blocks copy)
     } else {
       showToast('Clipboard failed — check permissions', true);
     }
@@ -784,6 +785,94 @@
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
+  }
+
+  // ─── Feedback Survey (additive, throttled, safe) ─────────────────────
+  // Opens a one-time-ish feedback survey after the user has copied a few times.
+  // Fully isolated from the copy logic above — if anything here fails, the
+  // copy feature is unaffected.
+  const FEEDBACK_ENABLED   = true;  // master kill switch — set false to disable entirely
+  const SURVEY_URL         = 'https://forms.microsoft.com/Pages/ResponsePage.aspx?id=jpuHmRY7fUKQKgXto0L2Kdgtf7JdcpZHvYqTVrFKlUJUN0hUMU1BVzVOS1dDUUdSNlZEQ0lTN0ZFSS4u';
+  const FIRST_PROMPT_AFTER = 3;     // fire after the user's 3rd successful copy
+  const SNOOZE_FOR_COPIES  = 5;     // "remind me later" → wait this many more copies
+  const MAX_PROMPTS        = 3;     // give up (auto-decline) after this many prompts
+  const MIN_HOURS_BETWEEN  = 24;    // never prompt twice within this window
+
+  // state = none | snoozed | responded | declined
+  function recordCopyAndMaybePrompt() {
+    if (!FEEDBACK_ENABLED) return;
+    if (!SURVEY_URL || SURVEY_URL.startsWith('PASTE_')) return; // not configured
+    try {
+      if (!chrome?.storage?.local) return;
+      chrome.storage.local.get('surveyState', (res) => {
+        if (chrome.runtime.lastError) return;
+        const s = res.surveyState || { state: 'none', copies: 0, prompts: 0, lastPromptAt: 0, askAtCopy: FIRST_PROMPT_AFTER };
+        if (s.state === 'responded' || s.state === 'declined') return; // done forever
+
+        s.copies = (s.copies || 0) + 1;
+
+        const hoursSince = (Date.now() - (s.lastPromptAt || 0)) / 36e5;
+        const dueByCount = s.copies >= (s.askAtCopy || FIRST_PROMPT_AFTER);
+        const withinCooldown = (s.lastPromptAt || 0) > 0 && hoursSince < MIN_HOURS_BETWEEN;
+
+        if (dueByCount && !withinCooldown) {
+          s.prompts = (s.prompts || 0) + 1;
+          s.lastPromptAt = Date.now();
+          if (s.prompts >= MAX_PROMPTS) s.state = 'declined'; // last ask, then stop
+          chrome.storage.local.set({ surveyState: s }, () => showSurveyBanner());
+        } else {
+          chrome.storage.local.set({ surveyState: s });
+        }
+      });
+    } catch (e) { /* extension context invalidated — never throw into copy flow */ }
+  }
+
+  function setSurveyState(patch) {
+    try {
+      chrome.storage.local.get('surveyState', (res) => {
+        const s = Object.assign({ state: 'none', copies: 0, prompts: 0, lastPromptAt: 0, askAtCopy: FIRST_PROMPT_AFTER }, res.surveyState || {}, patch);
+        chrome.storage.local.set({ surveyState: s });
+      });
+    } catch (e) {}
+  }
+
+  function showSurveyBanner() {
+    if (document.getElementById('pims-survey-banner')) return;
+    const banner = document.createElement('div');
+    banner.id = 'pims-survey-banner';
+    banner.className = 'pims-survey-banner';
+    banner.innerHTML = `
+      <span class="pims-survey-text">How's the PIMS Copier working for you? Share quick 2-min feedback.</span>
+      <button type="button" class="pims-survey-yes">Take survey</button>
+      <button type="button" class="pims-survey-later">Remind me later</button>
+      <button type="button" class="pims-survey-close" aria-label="Don't ask again">×</button>
+    `;
+    document.body.appendChild(banner);
+    requestAnimationFrame(() => banner.classList.add('pims-survey-banner-visible'));
+
+    const close = () => {
+      banner.classList.remove('pims-survey-banner-visible');
+      setTimeout(() => banner.remove(), 300);
+    };
+
+    banner.querySelector('.pims-survey-yes').addEventListener('click', () => {
+      window.open(SURVEY_URL, '_blank', 'noopener'); // direct user gesture → not blocked
+      setSurveyState({ state: 'responded' });          // clicked through → stop forever
+      close();
+    });
+    banner.querySelector('.pims-survey-later').addEventListener('click', () => {
+      try {
+        chrome.storage.local.get('surveyState', (res) => {
+          const s = res.surveyState || {};
+          setSurveyState({ state: 'snoozed', askAtCopy: (s.copies || 0) + SNOOZE_FOR_COPIES });
+        });
+      } catch (e) {}
+      close();
+    });
+    banner.querySelector('.pims-survey-close').addEventListener('click', () => {
+      setSurveyState({ state: 'declined' }); // never ask again
+      close();
+    });
   }
 
 })();
