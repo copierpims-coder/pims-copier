@@ -2,8 +2,13 @@
 
 .pims-sunset-notice {
   position: fixed;
+  inset: auto;          /* override popover UA defaults */
   bottom: 20px;
   right: 20px;
+  margin: 0;
+  width: auto;
+  height: auto;
+  overflow: visible;
   z-index: 2147483647;
   display: flex;
   align-items: flex-start;

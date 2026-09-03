@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "PracticeHub → PIMS Copier",
   "version": "2.0.0",
-  "description": "Retired — the PIMS Copier feature is now built into Chewy PracticeHub as Copy prescription details. This extension no longer does anything and can be removed.",
+  "description": "Retired — now built into Chewy PracticeHub as Copy prescription details. This extension does nothing and can be removed.",
   "permissions": [
     "storage"
   ],
@@ -12,8 +12,12 @@
         "https://*.chewyhealth.com/*",
         "https://*.practicehub.chewy.com/*"
       ],
-      "js": ["sunset.js"],
-      "css": ["sunset.css"],
+      "js": [
+        "sunset.js"
+      ],
+      "css": [
+        "sunset.css"
+      ],
       "run_at": "document_idle"
     }
   ],

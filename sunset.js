@@ -26,6 +26,11 @@
   const BANNER_ID = 'pims-sunset-notice';
   const DAY_MS    = 864e5;
 
+  let banner = null;
+  let observer = null;
+  let rehomeTimer = null;
+  let dismissed = false;
+
   if (Date.now() >= HARD_STOP) return;
   if (!(window.chrome && chrome.storage && chrome.storage.local)) return;
 
@@ -56,13 +61,61 @@
     document.addEventListener('DOMContentLoaded', fn, { once: true });
   }
 
-  function showNotice() {
-    if (document.getElementById(BANNER_ID)) return;
+  // PracticeHub's Review drawer is a modal with a focus trap: clicks that land
+  // outside it are swallowed at the document level. So the notice mounts INSIDE
+  // the open dialog when there is one, and uses the top-layer popover API so it
+  // sits above any overlay. A light observer re-homes it if the dialog opens,
+  // closes, or re-renders underneath it.
 
-    const banner = document.createElement('div');
-    banner.id = BANNER_ID;
-    banner.className = 'pims-sunset-notice';
-    banner.setAttribute('role', 'status');
+  function findOpenDialog() {
+    const candidates = document.querySelectorAll('dialog[open], [role="dialog"], [aria-modal="true"]');
+    for (let i = candidates.length - 1; i >= 0; i--) {
+      const el = candidates[i];
+      if (el === banner || (banner && banner.contains(el))) continue;
+      const r = el.getBoundingClientRect();
+      if (r.width > 200 && r.height > 200) return el;   // visible, real dialog
+    }
+    return null;
+  }
+
+  function mountTarget() {
+    return findOpenDialog() || document.body;
+  }
+
+  function showNotice() {
+    if (dismissed) return;
+    if (!banner) banner = buildBanner();
+    placeBanner();
+    if (!observer && window.MutationObserver) {
+      observer = new MutationObserver(() => {
+        clearTimeout(rehomeTimer);
+        rehomeTimer = setTimeout(placeBanner, 300);
+      });
+      observer.observe(document.body, {
+        childList: true, subtree: true,
+        attributes: true, attributeFilter: ['style', 'class', 'open', 'hidden', 'aria-modal']
+      });
+    }
+  }
+
+  function placeBanner() {
+    if (dismissed || !banner) return;
+    const target = mountTarget();
+    if (banner.parentElement !== target) {
+      target.appendChild(banner);                 // moving closes a popover; reopen below
+      if (typeof banner.showPopover === 'function') {
+        try { banner.showPopover(); } catch (e) {}
+      }
+      requestAnimationFrame(() => banner.classList.add('pims-sunset-notice-visible'));
+    }
+  }
+
+  function buildBanner() {
+    const el = document.createElement('div');
+    el.id = BANNER_ID;
+    el.className = 'pims-sunset-notice';
+    el.setAttribute('role', 'status');
+    if ('popover' in el) el.setAttribute('popover', 'manual');   // top layer, above overlays
 
     const text = document.createElement('span');
     text.className = 'pims-sunset-text';
@@ -73,15 +126,20 @@
     close.className = 'pims-sunset-close';
     close.setAttribute('aria-label', 'Dismiss');
     close.textContent = '×';
-    close.addEventListener('click', dismiss);
+    // Listen on pointerdown as well as click: focus-trap libraries cancel
+    // "outside" clicks in the capture phase, but pointerdown still arrives.
+    const onDismiss = (e) => { e.preventDefault(); e.stopPropagation(); dismiss(); };
+    close.addEventListener('pointerdown', onDismiss);
+    close.addEventListener('click', onDismiss);
 
-    banner.appendChild(text);
-    banner.appendChild(close);
-    document.body.appendChild(banner);
-    requestAnimationFrame(() => banner.classList.add('pims-sunset-notice-visible'));
+    el.appendChild(text);
+    el.appendChild(close);
+    return el;
   }
 
   function dismiss() {
+    if (dismissed) return;
+    dismissed = true;
     chrome.storage.local.get(STATE_KEY, (res) => {
       const state = (res && res[STATE_KEY]) || {};
       chrome.storage.local.set({ [STATE_KEY]: Object.assign({}, state, { dismissed: true }) });
@@ -90,10 +148,16 @@
   }
 
   function removeNotice() {
-    const banner = document.getElementById(BANNER_ID);
-    if (!banner) return;
-    banner.classList.remove('pims-sunset-notice-visible');
-    setTimeout(() => banner.remove(), 300);
+    if (observer) { observer.disconnect(); observer = null; }
+    clearTimeout(rehomeTimer);
+    const el = banner || document.getElementById(BANNER_ID);
+    if (!el) return;
+    el.classList.remove('pims-sunset-notice-visible');
+    setTimeout(() => {
+      try { if (typeof el.hidePopover === 'function') el.hidePopover(); } catch (e) {}
+      el.remove();
+    }, 300);
+    banner = null;
   }
 
   // Dismissed in one tab → disappears from every other open PracticeHub tab.
@@ -101,6 +165,7 @@
     chrome.storage.onChanged.addListener((changes, area) => {
       if (area === 'local' && changes[STATE_KEY] && changes[STATE_KEY].newValue &&
           changes[STATE_KEY].newValue.dismissed) {
+        dismissed = true;
         removeNotice();
       }
     });
