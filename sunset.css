@@ -1,0 +1,58 @@
+/* ─── PracticeHub → PIMS Copier — v2.0.0 retirement notice ──────────────── */
+
+.pims-sunset-notice {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2147483647;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 400px;
+  padding: 12px 12px 12px 14px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #0d904f;
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  font: 14px/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: #1a202c;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.pims-sunset-notice-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pims-sunset-text {
+  flex: 1;
+}
+
+.pims-sunset-close {
+  flex: none;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  line-height: 1;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0 4px;
+  margin-top: -2px;
+}
+
+.pims-sunset-close:hover {
+  color: #475569;
+}
+
+.pims-sunset-close:focus-visible {
+  outline: 2px solid #0d904f;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pims-sunset-notice { transition: none; }
+}
